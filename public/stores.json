@@ -1,0 +1,55 @@
+{
+  "stores": [
+    {
+      "id": 1,
+      "name": "The Green Market",
+      "category_id": 1,
+      "description": "Local organic produce and sustainable goods",
+      "address": {
+        "street": "123 Eco Street",
+        "city": "Portland",
+        "state": "OR",
+        "postal_code": "97201",
+        "country": "USA"
+      },
+      "coordinates": {
+        "latitude": 45.523064,
+        "longitude": -122.676483
+      }
+    },
+    {
+      "id": 2,
+      "name": "Tech Haven",
+      "category_id": 2,
+      "description": "Premium electronics and gadgets store",
+      "address": {
+        "street": "456 Innovation Ave",
+        "city": "Toronto",
+        "state": "ON",
+        "postal_code": "M5V 2H1",
+        "country": "CAN"
+      },
+      "coordinates": {
+        "latitude": 43.644345,
+        "longitude": -79.394762
+      }
+    },
+    {
+      "id": 3,
+      "name": "Taco Fiesta",
+      "category_id": 1,
+      "description": "Authentic Mexican street food",
+      "address": {
+        "street": "789 Sabor Lane",
+        "city": "Mexico City",
+        "state": "CDMX",
+        "postal_code": "03100",
+        "country": "MEX"
+      },
+      "coordinates": {
+        "latitude": 19.432608,
+        "longitude": -99.133209
+      }
+    }
+  ]
+}

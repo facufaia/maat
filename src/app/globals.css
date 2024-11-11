@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --flush-orange-50: 46 100% 96%; /* #fffaec */
+    --flush-orange-100: 45 100% 92%; /* #fff4d4 */
+    --flush-orange-200: 43 100% 83%; /* #ffe5a8 */
+    --flush-orange-300: 41 100% 72%; /* #ffd170 */
+    --flush-orange-400: 35 100% 61%; /* #ffb137 */
+    --flush-orange-500: 35 100% 53%; /* #ff9910 */
+    --flush-orange-600: 31 97% 50%; /* #f98107 */
+    --flush-orange-700: 27 93% 40%; /* #c75e07 */
+    --flush-orange-800: 24 84% 34%; /* #9e490e */
+    --flush-orange-900: 23 78% 28%; /* #7f3e0f */
+    --flush-orange-950: 22 87% 14%; /* #451d05 */
+
+    --te-papa-green-50: 146 33% 96%; /* #f4f9f6 */
+    --te-papa-green-100: 147 29% 89%; /* #dcebe3 */
+    --te-papa-green-200: 147 25% 78%; /* #b9d6c8 */
+    --te-papa-green-300: 147 23% 64%; /* #8ebaa5 */
+    --te-papa-green-400: 147 24% 50%; /* #669b83 */
+    --te-papa-green-500: 147 25% 40%; /* #4c8069 */
+    --te-papa-green-600: 147 27% 32%; /* #3b6654 */
+    --te-papa-green-700: 147 25% 26%; /* #325345 */
+    --te-papa-green-800: 147 24% 23%; /* #2e483e */
+    --te-papa-green-900: 147 23% 19%; /* #273a33 */
+    --te-papa-green-950: 147 25% 10%; /* #13201c */
+
+    /* Main colors */
+    --background: var(--te-papa-green-300);
+    --foreground: var(--te-papa-green-950);
+
+    /* Card colors */
+    --card: var(--te-papa-green-300);
+    --card-foreground: var(--te-papa-green-950);
+
+    /* Popover colors */
+    --popover: var(--te-papa-green-300);
+    --popover-foreground: var(--te-papa-green-950);
+
+    /* Primary colors */
+    --primary: var(--flush-orange-700);
+    --primary-foreground: var(--flush-orange-50);
+
+    /* Secondary colors */
+    --secondary: var(--te-papa-green-200);
+    --secondary-foreground: var(--te-papa-green-800);
+
+    /* Muted colors */
+    --muted: var(--te-papa-green-200);
+    --muted-foreground: var(--te-papa-green-700);
+
+    /* Accent colors */
+    --accent: var(--flush-orange-500);
+    --accent-foreground: var(--flush-orange-950);
+
+    /* Destructive colors */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: var(--te-papa-green-50);
+
+    /* Border and input colors */
+    --border: var(--te-papa-green-200);
+    --input: var(--te-papa-green-200);
+    --ring: var(--flush-orange-700);
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    /* Main colors */
+    --background: var(--te-papa-green-800);
+    --foreground: var(--te-papa-green-50);
+
+    /* Card colors */
+    --card: var(--te-papa-green-800);
+    --card-foreground: var(--te-papa-green-50);
+
+    /* Popover colors */
+    --popover: var(--te-papa-green-800);
+    --popover-foreground: var(--te-papa-green-50);
+
+    /* Primary colors */
+    --primary: var(--flush-orange-300);
+    --primary-foreground: var(--flush-orange-950);
+
+    /* Secondary colors */
+    --secondary: var(--te-papa-green-700);
+    --secondary-foreground: var(--te-papa-green-100);
+
+    /* Muted colors */
+    --muted: var(--te-papa-green-700);
+    --muted-foreground: var(--te-papa-green-300);
+
+    /* Accent colors */
+    --accent: var(--flush-orange-400);
+    --accent-foreground: var(--flush-orange-950);
+
+    /* Destructive colors */
+    --destructive: 0 62% 30%;
+    --destructive-foreground: var(--te-papa-green-50);
+
+    /* Border and input colors */
+    --border: var(--te-papa-green-700);
+    --input: var(--te-papa-green-700);
+    --ring: var(--flush-orange-300);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
