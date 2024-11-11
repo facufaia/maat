@@ -66,6 +66,15 @@ const JSONSTORE = [
     image: "https://images.unsplash.com/photo-1491933382434-500287f9b54b",
     rating: 5,
     description: "Trendy clothing and accessories",
+    hours: {
+      monday: "9:00 AM - 6:00 PM",
+      tuesday: "9:00 AM - 6:00 PM",
+      wednesday: "9:00 AM - 6:00 PM",
+      thursday: "9:00 AM - 6:00 PM",
+      friday: "9:00 AM - 6:00 PM",
+      saturday: "10:00 AM - 4:00 PM",
+      sunday: "Closed",
+    },
     address: {
       street: "101 Style Blvd",
       city: "Paris",
@@ -94,11 +103,7 @@ export const useSellerStore = create((set, get) => ({
   fetchStores: async () => {
     try {
       set({ loading: true });
-      // Simulate network delay
       await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      // const response = await fetch("data/stores.json");
-      // const data = await response.json();
 
       const data = JSONSTORE;
 

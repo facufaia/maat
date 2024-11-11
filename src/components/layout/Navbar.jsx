@@ -16,17 +16,17 @@ export default function MainNav() {
   const routes = [
     {
       href: "/",
-      label: "Home",
+      label: "Inicio",
       active: pathname === "/",
     },
     {
       href: "/stores",
-      label: "Stores",
+      label: "Tiendas",
       active: pathname === "/stores",
     },
     {
       href: "/about",
-      label: "About",
+      label: "Sobre Nosotros",
       active: pathname === "/about",
     },
   ];
@@ -36,9 +36,9 @@ export default function MainNav() {
       <div className="container flex h-14 items-center">
         <div className="mr-4 hidden md:flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
-            <span className="hidden font-bold sm:inline-block">Your Brand</span>
+            <span className="hidden font-bold sm:inline-block">Brand Logo</span>
           </Link>
-          <nav className="flex items-center space-x-6 text-sm font-medium">
+          <nav className="flex items-center space-x-6 text-sm font-medium justify-center">
             {routes.map((route) => (
               <Link
                 key={route.href}
@@ -59,7 +59,7 @@ export default function MainNav() {
             <>JOSE LUIS</>
           ) : (
             <Button asChild variant="ghost">
-              <Link href="/login">Login</Link>
+              <Link href="/login">Iniciar Sesion</Link>
             </Button>
           )}
         </div>

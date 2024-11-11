@@ -1,13 +1,12 @@
-// app/(stores)/stores/page.tsx
-import { StoreList } from "@/components/stores/storeList";
-import { StoreFilter } from "@/components/stores/storeFilter";
+import { StoreList } from "@/components/stores/StoreList";
+import { StoreFilter } from "@/components/stores/StoreFilter";
 
 export default function StoresPage() {
   return (
-    <div className="container py-12">
-      <div className="flex justify-between items-center mb-8">
+    <div className="container py-12 flex flex-col gap-8">
+      <div className="flex items-start flex-col gap-6">
         <h1 className="text-2xl font-bold">Browse Stores</h1>
-        {/* <StoreFilter /> */}
+        <StoreFilter />
       </div>
       <StoreList />
     </div>

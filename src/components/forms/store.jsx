@@ -1,6 +1,4 @@
-// components/forms/store/store.tsx
 "use client";
-
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
@@ -15,10 +13,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { storeSchema } from "@/lib/validations/store";
-import { useStoreStore } from "@/store/store-store";
+import { useSellerStore } from "@/store/sellers";
 
 export function CreateStoreForm() {
-  const createStore = useStoreStore((state) => state.createStore);
+  const createStore = useSellerStore((state) => state.createStore);
   const form = useForm({
     resolver: zodResolver(storeSchema),
     defaultValues: {

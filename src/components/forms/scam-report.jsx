@@ -13,22 +13,28 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
-import { scamReportSchema } from "@/lib/validations/report";
-import { useReportStore } from "@/store/report-store";
+import { scamReportSchema } from "@/lib/validations/scam-report";
+import { toast } from "sonner";
+import { useSellerStore } from "@/store/sellers";
 
-export function ScamReportForm({ storeId }) {
-  const createReport = useReportStore((state) => state.createReport);
+export function ScamReportForm() {
+  const store = useSellerStore((state) => state.store);
+
   const form = useForm({
     resolver: zodResolver(scamReportSchema),
     defaultValues: {
       description: "",
-      store_id: storeId,
+      store_id: store.id,
     },
   });
 
   async function onSubmit(values) {
     try {
-      await createReport(values);
+      // await createReport(values);
+      console.log("Report submitted", values);
+      toast("Report submitted", {
+        description: "Your report has been submitted successfully.",
+      });
     } catch (error) {
       console.error(error);
     }

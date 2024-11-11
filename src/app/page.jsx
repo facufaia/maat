@@ -1,11 +1,13 @@
 // app/(public)/page.tsx - Landing Page
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { Separator } from "@/components/ui/separator";
+import { StoreList } from "@/components/stores/StoreList";
 
 export default function Home() {
   return (
-    <div className="container">
-      <section className="py-24">
+    <section className="container py-24 min-h-[100vh] flex flex-col gap-16">
+      <section>
         <h1 className="text-4xl font-bold">
           Encuentra Tiendas de Confianza en Todo el Mundo
         </h1>
@@ -21,6 +23,8 @@ export default function Home() {
           </Button>
         </div>
       </section>
-    </div>
+      <Separator />
+      <StoreList />
+    </section>
   );
 }

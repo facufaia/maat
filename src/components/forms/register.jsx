@@ -20,7 +20,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { registerSchema } from "@/lib/validations/auth";
+import { registerSchema } from "@/lib/validations/register";
 import { useAuthStore } from "@/store/auth-store";
 
 export function RegisterForm() {

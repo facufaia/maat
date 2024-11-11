@@ -23,10 +23,7 @@ export default function ThemeToggle() {
   };
 
   return (
-    <button
-      onClick={toggleTheme}
-      className="p-2 rounded-full bg-gray-200 dark:bg-gray-800"
-    >
+    <button onClick={toggleTheme} className="p-2 rounded-full">
       {theme === "dark" ? (
         <SunIcon className="w-6 h-6 text-yellow-500" />
       ) : (

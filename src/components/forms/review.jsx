@@ -1,4 +1,3 @@
-// components/forms/reviews/review.tsx
 "use client";
 
 import { useForm } from "react-hook-form";
@@ -15,7 +14,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { reviewSchema } from "@/lib/validations/review";
 import { useReviewStore } from "@/store/reviews";
-import { RatingStars } from "@/components/ui/RatingStars";
+import { RatingInput } from "@/components/ui/RatingInput";
 
 export function ReviewForm({ storeId }) {
   const createReview = useReviewStore((state) => state.createReview);
@@ -45,10 +44,10 @@ export function ReviewForm({ storeId }) {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Rating</FormLabel>
-              {/* <FormControl>
-                <Rating value={field.value} onChange={field.onChange} />
+              <FormControl>
+                <RatingInput value={field.value} onChange={field.onChange} />
               </FormControl>
-              <FormMessage /> */}
+              <FormMessage />
             </FormItem>
           )}
         />

@@ -63,6 +63,19 @@ const JSONREVIEWS = [
     comment: "Amazing collection! Always find the latest trends here.",
     created_at: "2024-03-01T14:20:00Z",
   },
+  {
+    id: "r6",
+    store_id: 5, // Tech Haven
+    user: {
+      id: 4,
+      name: "Juan Laurent",
+      avatar: "DC",
+    },
+    rating: 5,
+    comment:
+      "Unbelievable prices and great customer service. Highly recommended!",
+    created_at: "2024-01-13T11:30:00Z",
+  },
 ];
 
 export const useReviewStore = create((set) => ({
@@ -80,7 +93,7 @@ export const useReviewStore = create((set) => ({
 
     await new Promise((resolve) => setTimeout(resolve, 1500));
 
-    const data = JSONREVIEWS.filter((review) => review.store_id === storeId);
+    const data = JSONREVIEWS.filter((review) => review.store_id == storeId);
 
     set({ reviews: data, loading: false });
     // } catch (error) {
