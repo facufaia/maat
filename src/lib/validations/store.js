@@ -1,10 +1,12 @@
 import { z } from "zod";
 
-// store.ts
 export const storeSchema = z.object({
+  user_id: z.number(),
   name: z.string().min(3),
   category_id: z.number(),
   description: z.string().min(10),
+  isVerified: z.boolean(),
+  images: z.array(z.string()),
   address: z.object({
     street: z.string(),
     city: z.string(),

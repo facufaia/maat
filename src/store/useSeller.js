@@ -22,6 +22,26 @@ const JSONSTORE = [
     },
   },
   {
+    id: 10,
+    name: "Verduleria don Pepe",
+    category_id: 1,
+    image:
+      "https://images.unsplash.com/photo-1604200657090-ae45994b2451?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGdyZWVuJTIwbWFya2V0fGVufDB8fDB8fHww",
+    rating: 3,
+    description: "Local organic produce and sustainable goods",
+    address: {
+      street: "123 Eco Street",
+      city: "Portland",
+      state: "OR",
+      postal_code: "97201",
+      country: "USA",
+    },
+    coordinates: {
+      latitude: 45.523064,
+      longitude: -122.676483,
+    },
+  },
+  {
     id: 5,
     name: "Tech Haven",
     category_id: 2,
@@ -44,7 +64,8 @@ const JSONSTORE = [
     id: 3,
     name: "Taco Fiesta",
     category_id: 1,
-    image: "https://images.unsplash.com/photo-1491933382434-500287f9b54b",
+    image:
+      "https://images.unsplash.com/photo-1624300629298-e9de39c13be5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fG1leGljYW4lMjBmb29kfGVufDB8fDB8fHww",
     rating: 2,
     description: "Authentic Mexican street food",
     address: {
@@ -63,7 +84,66 @@ const JSONSTORE = [
     id: 4,
     name: "Fashionista",
     category_id: 3,
-    image: "https://images.unsplash.com/photo-1491933382434-500287f9b54b",
+    image:
+      "https://images.unsplash.com/photo-1470309864661-68328b2cd0a5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGNsb3RoaW5nfGVufDB8fDB8fHww",
+    rating: 5,
+    description: "Trendy clothing and accessories",
+    hours: {
+      monday: "9:00 AM - 6:00 PM",
+      tuesday: "9:00 AM - 6:00 PM",
+      wednesday: "9:00 AM - 6:00 PM",
+      thursday: "9:00 AM - 6:00 PM",
+      friday: "9:00 AM - 6:00 PM",
+      saturday: "10:00 AM - 4:00 PM",
+      sunday: "Closed",
+    },
+    address: {
+      street: "101 Style Blvd",
+      city: "Paris",
+      state: "Île-de-France",
+      postal_code: "75001",
+      country: "FRA",
+    },
+    coordinates: {
+      latitude: 48.856613,
+      longitude: 2.352222,
+    },
+  },
+  {
+    id: 5,
+    name: "Tama",
+    category_id: 3,
+    image:
+      "https://images.unsplash.com/photo-1445205170230-053b83016050?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Y2xvdGhpbmd8ZW58MHx8MHx8fDA%3D",
+    rating: 5,
+    description: "Trendy clothing and accessories",
+    hours: {
+      monday: "9:00 AM - 6:00 PM",
+      tuesday: "9:00 AM - 6:00 PM",
+      wednesday: "9:00 AM - 6:00 PM",
+      thursday: "9:00 AM - 6:00 PM",
+      friday: "9:00 AM - 6:00 PM",
+      saturday: "10:00 AM - 4:00 PM",
+      sunday: "Closed",
+    },
+    address: {
+      street: "101 Style Blvd",
+      city: "Paris",
+      state: "Île-de-France",
+      postal_code: "75001",
+      country: "FRA",
+    },
+    coordinates: {
+      latitude: 48.856613,
+      longitude: 2.352222,
+    },
+  },
+  {
+    id: 6,
+    name: "Bambeco",
+    category_id: 3,
+    image:
+      "https://plus.unsplash.com/premium_photo-1664202526475-8f43ee70166d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8Y2xvdGhpbmd8ZW58MHx8MHx8fDA%3D",
     rating: 5,
     description: "Trendy clothing and accessories",
     hours: {

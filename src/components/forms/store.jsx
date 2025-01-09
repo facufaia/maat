@@ -13,7 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { storeSchema } from "@/lib/validations/store";
-import { useSellerStore } from "@/store/sellers";
+import { useSellerStore } from "@/store/useSeller";
 
 export function CreateStoreForm() {
   const createStore = useSellerStore((state) => state.createStore);

@@ -3,6 +3,8 @@ import { ReviewList } from "@/components/reviews/ReviewList";
 import { ReviewForm } from "@/components/forms/review";
 
 export default function StorePage({ params }) {
+  console.log(params);
+
   return (
     <div className="container py-12">
       <StoreCard id={params.id} />

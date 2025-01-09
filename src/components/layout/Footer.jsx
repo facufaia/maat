@@ -2,10 +2,11 @@
 "use client";
 
 import Link from "next/link";
-import { useAuthStore } from "@/store/auth-store";
+import { useSession } from "next-auth/react";
+import Image from "next/image";
 
 export default function Footer() {
-  const user = useAuthStore((state) => state.user);
+  const { data: session } = useSession();
 
   return (
     <footer className="border-t bg-background">
@@ -13,7 +14,15 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           {/* Brand Column */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Thrust</h3>
+            <Link href="/" className="flex items-center space-x-2">
+              <Image
+                src="/maatmedrecortada.png"
+                alt="Maat Logo"
+                width={140}
+                height={140}
+                className="h-auto w-auto"
+              />
+            </Link>
             <p className="text-sm text-muted-foreground">
               Connecting trusted stores with customers worldwide.
             </p>
@@ -25,24 +34,24 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <Link href="/stores" className="hover:underline">
-                  Find Stores
+                  Servicios
                 </Link>
               </li>
               <li>
                 <Link href="/about" className="hover:underline">
-                  About Us
+                  Sobre Nosotros
                 </Link>
               </li>
-              {!user && (
+              {!session?.user && (
                 <>
                   <li>
                     <Link href="/login" className="hover:underline">
-                      Login
+                      Inicia Sesion
                     </Link>
                   </li>
                   <li>
                     <Link href="/register" className="hover:underline">
-                      Register
+                      Registrate
                     </Link>
                   </li>
                 </>
@@ -98,7 +107,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="flex flex-col items-center justify-between pt-8 mt-8 border-t md:flex-row">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Thrust. All rights reserved.
+            © {new Date().getFullYear()} Maat. All rights reserved.
           </p>
           <div className="flex items-center space-x-4 mt-4 md:mt-0">
             <Link

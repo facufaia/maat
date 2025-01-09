@@ -15,7 +15,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { scamReportSchema } from "@/lib/validations/scam-report";
 import { toast } from "sonner";
-import { useSellerStore } from "@/store/sellers";
+import { useSellerStore } from "@/store/useSeller";
 
 export function ScamReportForm() {
   const store = useSellerStore((state) => state.store);

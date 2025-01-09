@@ -3,6 +3,7 @@ import Navbar from "@/components/layout/Navbar.jsx";
 import Footer from "@/components/layout/Footer.jsx";
 import { Inter } from "next/font/google";
 import { Toaster } from "sonner";
+import { SessionProvider } from "next-auth/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,12 +15,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
-        <Toaster />
-      </body>
+      <SessionProvider>
+        <body className={inter.className}>
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+          <Toaster />
+        </body>
+      </SessionProvider>
     </html>
   );
 }

@@ -8,11 +8,27 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useSellerStore } from "@/store/sellers";
+import { useSellerStore } from "@/store/useSeller";
+import ColletionsBTN from "@/components/ui/BookmarkButton";
 
 export function StoreFilter() {
   const filters = useSellerStore((state) => state.filters);
   const setFilters = useSellerStore((state) => state.setFilters);
+
+  const categories = [
+    { id: 1, name: "Artículos para el hogar" },
+    { id: 2, name: "Electrónica" },
+    { id: 3, name: "Entretenimiento" },
+    { id: 4, name: "Familia" },
+    { id: 5, name: "Inmuebles" },
+    { id: 6, name: "Instrumentos musicales" },
+    { id: 7, name: "Jardín y exteriores" },
+    { id: 8, name: "Juguetes y juegos" },
+    { id: 9, name: "Material de oficina" },
+    { id: 10, name: "Ropa" },
+    { id: 11, name: "Suministros para mascotas" },
+    { id: 12, name: "Suministros para reformas" },
+  ];
 
   return (
     <div className="flex gap-4 bg-card rounded-lg shadow-sm">
@@ -34,14 +50,16 @@ export function StoreFilter() {
         <SelectContent>
           <SelectGroup>
             <SelectItem value="all">Todas las categorías</SelectItem>
-            <SelectItem value="1">Restaurantes</SelectItem>
-            <SelectItem value="2">Tiendas</SelectItem>
-            <SelectItem value="3">Servicios</SelectItem>
+            {categories.map((category) => (
+              <SelectItem key={category.id} value={category.id.toString()}>
+                {category.name}
+              </SelectItem>
+            ))}
           </SelectGroup>
         </SelectContent>
       </Select>
 
-      <Select
+      {/* <Select
         value={filters.country || ""}
         onValueChange={(value) =>
           setFilters({ country: value === "all" ? null : value })
@@ -58,7 +76,8 @@ export function StoreFilter() {
             <SelectItem value="MEX">México</SelectItem>
           </SelectGroup>
         </SelectContent>
-      </Select>
+      </Select> */}
+      {/* <ColletionsBTN /> */}
     </div>
   );
 }

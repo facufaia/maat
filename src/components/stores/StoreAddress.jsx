@@ -5,7 +5,6 @@ export function StoreAddress({ address }) {
     <div className="flex items-start gap-3">
       <MapPin className="w-5 h-5 text-primary mt-1" />
       <div>
-        <h3 className="font-semibold">Direccion</h3>
         <p className="text-sm text-muted-foreground">
           {address.street}
           <br />
