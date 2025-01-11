@@ -1,22 +1,22 @@
 "use client";
 import { Bookmark } from "lucide-react";
 import { Button } from "./button";
-import { useSellerStore } from "@/store/useSeller";
+import { useProvidersStore } from "@/store/useProviders";
 
 export function BookmarkButton() {
-  const toggleBookmark = useSellerStore((state) => state.toggleBookmark);
-  const store = useSellerStore((state) => state.store);
+  const toggleBookmark = useProvidersStore((state) => state.toggleBookmark);
+  const provider = useProvidersStore((state) => state.provider);
 
   return (
     <Button
       variant="secondary"
       size="icon"
-      onClick={() => toggleBookmark(store.id)}
+      onClick={() => toggleBookmark(provider.id)}
       className="transition-colors duration-200"
     >
       <Bookmark
         className={`w-6 h-6 ${
-          store?.isBookmarked ? "fill-red-500 text-red-500" : "text-gray-400"
+          provider?.isBookmarked ? "fill-red-500 text-red-500" : "text-gray-400"
         }`}
       />
     </Button>

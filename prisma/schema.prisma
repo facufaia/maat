@@ -7,110 +7,279 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum payment_type {
+  ADVANCE
+  FINAL
+}
+
+enum payment_status {
+  PENDING
+  PAID
+  CANCELLED
+  REFUNDED
+}
+
+enum service_type {
+  LOCAL
+  HOME
+  ONLINE
+  MOBILE
+}
+
+enum status_type {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
+
+enum auth_provider_options {
+  CREDENTIALS
+  GOOGLE
+  FACEBOOK
+  APPLE
+}
+
+model payment {
+  id             Int           @id @default(autoincrement())
+  booking_id     Int
+  user_id        Int
+  provider_id    Int
+
+  amount         Float
+  payment_date   DateTime      @default(now())
+  payment_type   payment_type  @default(ADVANCE)
+  payment_status payment_status @default(PENDING)
+
+  user        user          @relation(fields: [user_id], references: [id])
+  provider    provider      @relation(fields: [provider_id], references: [id])
+  booking        booking       @relation(fields: [booking_id], references: [id])
+
+  invoice        invoice?
+  refund         refund?
+  
+  @@map("payments")
+}
+
+
+model auth_provider {
+  provider_id               Int                   @id
+  user_id          Int
+  provider_type    auth_provider_options
+  email            String
+  password         String?
+  user             user                   @relation(fields: [user_id], references: [id])
+
+  @@unique([provider_type, email])
+  @@map("auth_providers")
+}
+
 model user {
-  id            Int            @id @default(autoincrement())
-  email         String         @unique
-  password      String
-  role          String         // "USER", "STORE_OWNER", "ADMIN"
-  created_at    DateTime       @default(now())
-  stores        store[]
+  id                Int                   @id @default(autoincrement())
+  role              String    // "USER", "PROVIDER_OWNER", "ADMIN"
+  created_at        DateTime             @default(now())
+  
+  auth_provider     auth_provider[]
+  providers     provider[]
   reviews       review[]
   reports       report[]
   payments      payment[]
+  bookings      booking[]  
 
   @@map("users")
 }
 
-model store {
-  id                Int          @id @default(autoincrement())
+model brand {
+  id              Int        @id @default(autoincrement())
+
+  name            String
+  color_primary   String
+  color_secondary String
+
+  providers       provider[]
+
+  @@map("brands")
+}
+
+model provider {
+  id                Int  @id @default(autoincrement())
+  brand_id          Int?
   user_id           Int
-  store_name        String
   category_id       Int
+
+  name              String
   description       String
-  verified          Boolean      @default(false)
-  subscription_date DateTime     @default(now())
-  user              user         @relation(fields: [user_id], references: [id])
-  category          category     @relation(fields: [category_id], references: [id])
-  address           address?
+  color_primary     String
+  color_secondary   String
+  phone_number      String
+  image_url         String
+  verified          Boolean               @default(false)
+  subscription_date DateTime              @default(now())
+  service_types     service_type[]
+
+  category          category @relation(fields: [category_id], references: [id])
+
+  user              user                  @relation(fields: [user_id], references: [id])
+  brand             brand?                @relation(fields: [brand_id], references: [id])
   reviews           review[]
   reports           report[]
   payments          payment[]
+  workers           worker_profile[]
+  address           address?
+  balance           balance?
+  bank_account      bank_account?
+  payment_config    store_payment_config?
 
-  @@map("stores")
+  @@map("providers")
+}
+
+model address {
+  id          Int      @id @default(autoincrement())
+  provider_id Int      @unique
+
+  street      String
+  city        String
+  state       String
+  postal_code String
+  country     String
+  latitude    Float
+  longitude   Float
+
+  provider    provider @relation(fields: [provider_id], references: [id])
+
+  @@map("address")
+}
+
+model worker_profile {
+  id            Int            @id @default(autoincrement())
+  provider_id   Int
+
+  username      String
+  avatar        String?
+  description   String
+
+  provider      provider      @relation(fields: [provider_id], references: [id])
+  services      worker_service[]
+  service_id    Int?
+  labor_shifts  labor_shift[]
+}
+
+model worker_service {
+  id         Int            @id @default(autoincrement())
+  worker_id  Int
+  service_id Int
+
+  price      Float
+  duration   Int
+  is_online  Boolean
+
+  worker     worker_profile @relation(fields: [worker_id], references: [id])
+  service    service        @relation(fields: [service_id], references: [id])
+  bookings   booking[]
+}
+
+model labor_shift {
+  id          Int            @id @default(autoincrement())
+  worker_id   Int
+
+  day_of_week String
+  start_time  DateTime       @db.Time
+  end_time    DateTime       @db.Time
+
+  worker      worker_profile @relation(fields: [worker_id], references: [id])
+}
+
+model booking {
+  id               Int             @id @default(autoincrement())
+  user_id          Int
+  worker_service_id Int
+
+  booking_date     DateTime
+  start_time       DateTime
+  status           status_type[]          
+  payments         payment[]       // Permite múltiples pagos parciales
+
+  user             user            @relation(fields: [user_id], references: [id])
+  worker_service   worker_service  @relation(fields: [worker_service_id], references: [id])
+  
+  @@map("bookings")
+}
+
+model service {
+  id              Int              @id @default(autoincrement())
+  category_id     Int
+  
+  name            String
+  description     String
+
+  category        category         @relation(fields: [category_id], references: [id])
+  worker_services worker_service[]
+
+  @@map("services")
 }
 
 model category {
-  id             Int      @id @default(autoincrement())
-  category_name  String
-  stores         store[]
+  id            Int        @id @default(autoincrement())
+
+  name          String
+  providers     provider[]
+  services      service[]
 
   @@map("categories")
 }
 
-model address {
-  id           Int      @id @default(autoincrement())
-  store_id     Int      @unique
-  street       String
-  city         String
-  state        String
-  postal_code  String
-  country      String
-  latitude     Float
-  longitude    Float
-  store        store    @relation(fields: [store_id], references: [id])
+model store_payment_config {
+  id                     Int      @id @default(autoincrement())
+  provider_id            Int      @unique
 
-  @@map("addresses")
+  accepts_online_payment Boolean
+  requires_deposit       Boolean
+  default_deposit_rate   Float
+  payment_methods        String[]
+
+  provider               provider @relation(fields: [provider_id], references: [id])
+
+  @@map("store_payment_configs")
 }
 
 model review {
   id          Int      @id @default(autoincrement())
+
   comment     String
   rating      Int
   created_at  DateTime @default(now())
   user_id     Int
-  store_id    Int
+  provider_id Int
+
   user        user     @relation(fields: [user_id], references: [id])
-  store       store    @relation(fields: [store_id], references: [id])
+  provider    provider @relation(fields: [provider_id], references: [id])
 
   @@map("reviews")
 }
 
 model report {
-  id                Int      @id @default(autoincrement())
+  id                 Int      @id @default(autoincrement())
+  user_id            Int
+  provider_id        Int
+
   report_description String
-  report_date       DateTime @default(now())
-  status            String
-  user_id           Int
-  store_id          Int
-  user              user     @relation(fields: [user_id], references: [id])
-  store             store    @relation(fields: [store_id], references: [id])
+  report_date        DateTime @default(now())
+  status             String
+
+  user               user     @relation(fields: [user_id], references: [id])
+  provider           provider @relation(fields: [provider_id], references: [id])
 
   @@map("reports")
-}
-
-model payment {
-  id            Int      @id @default(autoincrement())
-  amount        Float
-  payment_date  DateTime @default(now())
-  payment_type  String
-  payment_status String
-  user_id       Int
-  store_id      Int
-  user          user     @relation(fields: [user_id], references: [id])
-  store         store    @relation(fields: [store_id], references: [id])
-  invoice       invoice?
-  refund        refund?
-
-  @@map("payments")
 }
 
 model invoice {
   id             Int      @id @default(autoincrement())
   payment_id     Int      @unique
+
   issue_date     DateTime @default(now())
   invoice_number String
   total_amount   Float
-  status         String
+
   payment        payment  @relation(fields: [payment_id], references: [id])
 
   @@map("invoices")
@@ -119,11 +288,51 @@ model invoice {
 model refund {
   id            Int      @id @default(autoincrement())
   payment_id    Int      @unique
+
   refund_date   DateTime @default(now())
   refund_amount Float
   reason        String
   status        String
-  payment       payment  @relation(fields: [payment_id], references: [id])
 
+  payment       payment  @relation(fields: [payment_id], references: [id])
+  
   @@map("refunds")
+}
+
+model balance {
+  id               Int          @id @default(autoincrement())
+  provider_id      Int          @unique
+
+  available_amount Float
+  pending_amount   Float
+  last_updated     DateTime
+
+  provider         provider     @relation(fields: [provider_id], references: [id])
+  withdrawals      withdrawal[]
+}
+
+model bank_account {
+  id             Int      @id @default(autoincrement())
+  provider_id    Int      @unique
+
+  bank_name      String
+  account_number String
+  account_type   String
+  holder_name    String
+  verified       Boolean
+
+  provider       provider @relation(fields: [provider_id], references: [id])
+}
+
+model withdrawal {
+  id               Int       @id @default(autoincrement())
+  balance_id       Int
+
+  amount           Float
+  status           String
+  requested_at     DateTime
+  processed_at     DateTime?
+  reference_number String?
+
+  balance          balance   @relation(fields: [balance_id], references: [id])
 }

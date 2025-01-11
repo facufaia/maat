@@ -6,22 +6,20 @@ export async function GET(request) {
     const { searchParams } = new URL(request.url);
     const categoryId = searchParams.get("category_id");
 
-    if (!categoryId) {
-      return NextResponse.json(
-        { error: "Category ID is required" },
-        { status: 400 }
-      );
-    }
+    const where = categoryId ? { category_id: parseInt(categoryId) } : {};
 
     const services = await prisma.service.findMany({
-      where: {
-        category_id: parseInt(categoryId),
-      },
+      where,
       select: {
         id: true,
         name: true,
         description: true,
         category_id: true,
+        category: {
+          select: {
+            name: true,
+          },
+        },
       },
       orderBy: {
         name: "asc",

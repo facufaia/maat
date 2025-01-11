@@ -12,7 +12,7 @@ const defaultCenter = {
   lng: 0,
 };
 
-export function StoreMap({ address }) {
+export function Map({ address }) {
   const [coordinates, setCoordinates] = useState(defaultCenter);
 
   useEffect(() => {

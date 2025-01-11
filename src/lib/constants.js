@@ -1,7 +1,19 @@
-// src/store/store-store.js
-import { create } from "zustand";
+export const categories = [
+  { id: 1, name: "Artículos para el hogar" },
+  { id: 2, name: "Electrónica" },
+  { id: 3, name: "Entretenimiento" },
+  { id: 4, name: "Familia" },
+  { id: 5, name: "Inmuebles" },
+  { id: 6, name: "Instrumentos musicales" },
+  { id: 7, name: "Jardín y exteriores" },
+  { id: 8, name: "Juguetes y juegos" },
+  { id: 9, name: "Material de oficina" },
+  { id: 10, name: "Ropa" },
+  { id: 11, name: "Suministros para mascotas" },
+  { id: 12, name: "Suministros para reformas" },
+];
 
-const JSONSTORE = [
+export const stores = [
   {
     id: 1,
     name: "The Green Market",
@@ -169,91 +181,136 @@ const JSONSTORE = [
   },
 ];
 
-export const useSellerStore = create((set, get) => ({
-  stores: [],
-  store: null,
-  filteredStores: [],
-  loading: false,
-  filters: {
-    search: "",
-    category: null,
-    country: null,
+export const professionals = [
+  {
+    id: 1,
+    name: "María López",
+    role: "Estilista Senior",
+    image: "https://github.com/maria-lopez.png",
+    initials: "ML",
+    services: [
+      {
+        id: 1,
+        name: "Corte de cabello",
+        price: 25,
+        duration: 1,
+        advance: {
+          amount: 30, // porcentaje
+          payment_methods: ["EFECTIVO", "TARJETA", "QR"],
+        },
+        qr_url: "https://backend.example.com/payment/qr?serviceId=1",
+      },
+      {
+        id: 2,
+        name: "Peinado",
+        price: 20,
+        duration: 1,
+        advance: null, // No requiere adelanto
+        qr_url: "https://backend.example.com/payment/qr?serviceId=2",
+      },
+      {
+        id: 3,
+        name: "Tinte y mechas",
+        price: 60,
+        duration: 2,
+        advance: {
+          amount: 50,
+          payment_methods: ["TARJETA", "QR"], // Tarjeta o QR
+        },
+        qr_url: "https://backend.example.com/payment/qr?serviceId=3",
+      },
+    ],
   },
-  error: null,
-  fetchStores: async () => {
-    try {
-      set({ loading: true });
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      const data = JSONSTORE;
-
-      set({
-        stores: data,
-        filteredStores: data,
-        loading: false,
-      });
-    } catch (error) {
-      console.error("Failed to fetch stores:", error);
-      set({ loading: false });
-    }
+  {
+    id: 2,
+    name: "Carlos Sánchez",
+    role: "Barbero",
+    image: "https://github.com/carlos-sanchez.png",
+    initials: "CS",
+    services: [
+      {
+        id: 4,
+        name: "Corte de barba",
+        price: 15,
+        duration: 0.5,
+        advance: null, // No requiere adelanto
+        qr_url: "https://backend.example.com/payment/qr?serviceId=4",
+      },
+      {
+        id: 5,
+        name: "Afeitado clásico",
+        price: 20,
+        duration: 1,
+        advance: {
+          amount: 25,
+          payment_methods: ["EFECTIVO", "TARJETA", "QR"],
+        },
+        qr_url: "https://backend.example.com/payment/qr?serviceId=5",
+      },
+      {
+        id: 6,
+        name: "Diseño de barba",
+        price: 30,
+        duration: 1,
+        advance: {
+          amount: 50,
+          payment_methods: ["EFECTIVO", "TARJETA", "QR"],
+        },
+        qr_url: "https://backend.example.com/payment/qr?serviceId=6",
+      },
+    ],
   },
-  setFilters: (newFilters) => {
-    const state = get();
-    const filters = { ...state.filters, ...newFilters };
-    set({ filters });
-
-    const filtered = state.stores.filter((store) => {
-      const matchesSearch =
-        store.name.toLowerCase().includes(filters.search.toLowerCase()) ||
-        store.description.toLowerCase().includes(filters.search.toLowerCase());
-      const matchesCategory =
-        !filters.category || store.category_id === filters.category;
-      const matchesCountry =
-        !filters.country || store.address.country === filters.country;
-      return matchesSearch && matchesCategory && matchesCountry;
-    });
-    set({ filteredStores: filtered });
+  {
+    id: 3,
+    name: "Laura Gómez",
+    role: "Especialista en Coloración",
+    image: "https://github.com/laura-gomez.png",
+    initials: "LG",
+    services: [
+      {
+        id: 7,
+        name: "Baño de color",
+        price: 40,
+        duration: 1.5,
+        advance: {
+          amount: 50, // porcentaje
+          payment_methods: ["EFECTIVO", "TARJETA", "QR"],
+        },
+        qr_url: "https://backend.example.com/payment/qr?serviceId=7",
+      },
+      {
+        id: 8,
+        name: "Tinte completo",
+        price: 70,
+        duration: 2,
+        advance: {
+          amount: 50,
+          payment_methods: ["EFECTIVO", "TARJETA", "QR"],
+        },
+        qr_url: "https://backend.example.com/payment/qr?serviceId=8",
+      },
+      {
+        id: 9,
+        name: "Balayage",
+        price: 120,
+        duration: 3,
+        advance: {
+          amount: 50,
+          payment_methods: ["EFECTIVO", "TARJETA", "QR"],
+        },
+        qr_url: "https://backend.example.com/payment/qr?serviceId=9",
+      },
+      {
+        id: 10,
+        name: "Mechas californianas",
+        price: 100,
+        duration: 2.5,
+        advance: {
+          amount: 50,
+          payment_methods: ["EFECTIVO", "TARJETA", "QR"],
+        },
+        qr_url: "https://backend.example.com/payment/qr?serviceId=10",
+      },
+    ],
   },
-  createStore: async (storeData) => {
-    try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      const newStore = {
-        id: Date.now(), // Generate temporary ID
-        ...storeData,
-      };
-
-      set((state) => ({
-        stores: [...state.stores, newStore],
-        filteredStores: [...state.filteredStores, newStore],
-      }));
-
-      return newStore;
-    } catch (error) {
-      console.error("Failed to create store:", error);
-      throw error;
-    }
-  },
-  getStoreDetails: async (storeId) => {
-    try {
-      set({ loading: true, error: null });
-      const state = get();
-      const store = state.stores.find(
-        (store) => store.id === parseInt(storeId)
-      );
-
-      if (!store) {
-        throw new Error("Store not found");
-      }
-
-      set({ store, loading: false });
-    } catch (error) {
-      set({
-        error: error.message,
-        loading: false,
-        store: null,
-      });
-    }
-  },
-}));
+];

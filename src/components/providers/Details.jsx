@@ -1,23 +1,25 @@
 "use client";
 import { useEffect } from "react";
-import { useSellerStore } from "@/store/useSeller";
+import { useSellerProvider } from "@/stores/useSeller";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { RatingStars } from "@/components/ui/RatingStars";
 
-export function StoreDetails({ id }) {
-  const loading = useSellerStore((state) => state.loading);
-  const error = useSellerStore((state) => state.error);
-  const getStoreDetails = useSellerStore((state) => state.getStoreDetails);
-  const store = useSellerStore((state) => state.store);
+export function Details({ id }) {
+  const loading = useSellerProvider((state) => state.loading);
+  const error = useSellerProvider((state) => state.error);
+  const getProviderDetails = useSellerProvider(
+    (state) => state.getProviderDetails
+  );
+  const provider = useSellerProvider((state) => state.provider);
 
   useEffect(() => {
-    getStoreDetails(id);
+    getProviderDetails(id);
   }, [id]);
 
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-[200px]">
-        <p className="text-muted-foreground">Loading store details...</p>
+        <p className="text-muted-foreground">Loading Provider details...</p>
       </div>
     );
   }
@@ -30,10 +32,10 @@ export function StoreDetails({ id }) {
     );
   }
 
-  if (!store) {
+  if (!provider) {
     return (
       <div className="flex justify-center items-center min-h-[200px]">
-        <p className="text-muted-foreground">Store not found</p>
+        <p className="text-muted-foreground">Provider not found</p>
       </div>
     );
   }
@@ -43,11 +45,13 @@ export function StoreDetails({ id }) {
       <CardHeader>
         <div className="flex justify-between items-start">
           <div>
-            <CardTitle className="text-2xl font-bold">{store.name}</CardTitle>
+            <CardTitle className="text-2xl font-bold">
+              {provider.name}
+            </CardTitle>
             <div className="flex items-center gap-2 mt-2">
-              <RatingStars rating={store.rating} />
+              <RatingStars rating={provider.rating} />
               <span className="text-sm text-muted-foreground">
-                ({store.totalReviews} reseñas)
+                ({provider.totalReviews} reseñas)
               </span>
             </div>
           </div>
@@ -55,13 +59,13 @@ export function StoreDetails({ id }) {
       </CardHeader>
       <CardContent className="space-y-6">
         <img
-          src={store.image}
-          alt={"store.name"}
+          src={provider.image}
+          alt={"provider.name"}
           className="w-full h-64 object-cover rounded-lg"
         />
 
         {/* <div>
-          <p className="text-muted-foreground">{store.description}</p>
+          <p className="text-muted-foreground">{provider.description}</p>
         </div>
 
         <Separator />
@@ -72,12 +76,12 @@ export function StoreDetails({ id }) {
             <div>
               <h3 className="font-semibold">Address</h3>
               <p className="text-sm text-muted-foreground">
-                {store.address.street}
+                {provider.address.street}
                 <br />
-                {store.address.city}, {store.address.state}{" "}
-                {store.address.postal_code}
+                {provider.address.city}, {provider.address.state}{" "}
+                {provider.address.postal_code}
                 <br />
-                {store.address.country}
+                {provider.address.country}
               </p>
             </div>
           </div>
@@ -87,7 +91,7 @@ export function StoreDetails({ id }) {
             <div>
               <h3 className="font-semibold">Business Hours</h3>
               <div className="text-sm text-muted-foreground grid grid-cols-2 gap-2">
-                {Object.entries(store.hours).map(([day, hours]) => (
+                {Object.entries(provider.hours).map(([day, hours]) => (
                   <div key={day} className="flex justify-between">
                     <span className="capitalize">{day}:</span>
                     <span>{hours}</span>

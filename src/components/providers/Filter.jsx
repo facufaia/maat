@@ -8,27 +8,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useSellerStore } from "@/store/useSeller";
+import { useProvidersStore } from "@/store/useProviders";
 import ColletionsBTN from "@/components/ui/BookmarkButton";
+import { categories } from "@/lib/constants";
 
-export function StoreFilter() {
-  const filters = useSellerStore((state) => state.filters);
-  const setFilters = useSellerStore((state) => state.setFilters);
-
-  const categories = [
-    { id: 1, name: "Artículos para el hogar" },
-    { id: 2, name: "Electrónica" },
-    { id: 3, name: "Entretenimiento" },
-    { id: 4, name: "Familia" },
-    { id: 5, name: "Inmuebles" },
-    { id: 6, name: "Instrumentos musicales" },
-    { id: 7, name: "Jardín y exteriores" },
-    { id: 8, name: "Juguetes y juegos" },
-    { id: 9, name: "Material de oficina" },
-    { id: 10, name: "Ropa" },
-    { id: 11, name: "Suministros para mascotas" },
-    { id: 12, name: "Suministros para reformas" },
-  ];
+export function Filter() {
+  const filters = useProvidersStore((state) => state.filters);
+  const setFilters = useProvidersStore((state) => state.setFilters);
 
   return (
     <div className="flex gap-4 bg-card rounded-lg shadow-sm">
